@@ -35,6 +35,13 @@ Name = <string> - The name of the section.
 ]]
 
 Tab:AddButton({
+	Name = "project bestrc7",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/hi822010/HappyMod/refs/heads/main/Project%20BestRC7.lua"))()
+  	end    
+})
+
+Tab:AddButton({
 	Name = "extrenal gui",
 	Callback = function()
       		loadstring(game:HttpGet("https://pastefy.app/g3NuNvR4/raw"))()
