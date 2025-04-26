@@ -35,17 +35,107 @@ Name = <string> - The name of the section.
 ]]
 
 Tab:AddButton({
-	Name = "project bestrc7",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/hi822010/HappyMod/refs/heads/main/Project%20BestRC7.lua"))()
-  	end    
-})
-
-Tab:AddButton({
 	Name = "extrenal gui",
 	Callback = function()
       		loadstring(game:HttpGet("https://pastefy.app/g3NuNvR4/raw"))()
   	end    
+})
+
+Tab:AddButton({
+    Name = "robux stealer pls donate",
+    Callback = function()
+  local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/random%202"))()
+local One = library:Window("Robux Stealer | V2")
+
+local targetPlayerName = ""
+local amount = ""
+
+-- Input boxes for user and amount
+One:Box("User =", "Type Here!", function(inputText)
+    targetPlayerName = inputText
+end)
+
+One:Box("Amount =", "Type Here!", function(inputText)
+    amount = inputText
+end)
+
+-- Button for teleporting to the player
+One:Button("Teleport To Player", function()
+    local targetPlayer = game:GetService("Players"):FindFirstChild(targetPlayerName)
+    if targetPlayer then
+        local targetCharacter = targetPlayer.Character
+        if targetCharacter and targetCharacter:FindFirstChild("HumanoidRootPart") then
+            local targetPosition = targetCharacter.HumanoidRootPart.Position
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(targetPosition)
+            print("Teleporting to " .. targetPlayerName)
+        else
+            print("Target player doesn't have a valid character!")
+        end
+    else
+        print("Player not found!")
+    end
+end)
+
+-- Fake donation logic
+One:Button("Start Stealing Robux", function()
+    -- Use the victim's username and the entered amount
+    local username = targetPlayerName
+    local robux_amount = tonumber(amount) or 1000000  -- Use user input amount or default to 1,000,000
+
+    -- Function to format numbers with commas
+    function formatNumber(number)
+        local formatted = tostring(number)
+        formatted = formatted:reverse():gsub("(%d%d%d)", "%1,"):reverse()
+        if formatted:sub(1, 1) == "," then
+            formatted = formatted:sub(2)
+        end
+        return formatted
+    end
+
+    -- Create the fake donation pop-up
+    local ScreenGui = game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui
+    local TweenService = game:GetService("TweenService")
+    local Donation_Text = username.." DONATED " ..formatNumber(robux_amount).. " TO YOU!"
+    local clone = game:GetService("Players").LocalPlayer.PlayerGui.UITemplates.donationPopup:Clone()
+
+    -- Update raised value (for stats or simulation purposes)
+    game:GetService("Players").LocalPlayer.leaderstats.Raised.Value = game:GetService("Players").LocalPlayer.leaderstats.Raised.Value + robux_amount
+
+    -- Set up the UI and animations
+    clone.Message.Text = Donation_Text
+    clone.Transparency = 1
+    clone.UIScale.Scale = 0
+    clone.Parent = ScreenGui.Popups
+    TweenService:Create(clone, TweenInfo.new(0.5, Enum.EasingStyle.Quint), {
+        Transparency = 0;
+    }):Play()
+
+    local Back = Enum.EasingStyle.Back
+    if not Back then
+        Back = Enum.EasingStyle.Quint
+    end
+    TweenService:Create(clone.UIScale, TweenInfo.new(0.3, Back), {
+        Scale = 1;
+    }):Play()
+
+    TweenService:Create(clone.Message, TweenInfo.new(1, Enum.EasingStyle.Quint), {
+        MaxVisibleGraphemes = #Donation_Text;
+    }):Play()
+
+    -- Wait and then hide the donation pop-up
+    wait(4)
+    TweenService:Create(clone, TweenInfo.new(0.25, Enum.EasingStyle.Quint), {
+        Transparency = 1;
+    }):Play()
+
+    TweenService:Create(clone.UIScale, TweenInfo.new(0.5, Back), {
+        Scale = 0;
+    }):Play()
+    wait(0.5)
+
+    print("Robux Stealing Simulation: " .. robux_amount .. " from " .. targetPlayerName)
+end)
+  end    
 })
 
 --[[
@@ -56,7 +146,7 @@ Callback = <function> - The function of the button.
 Tab:AddButton({
 	Name = "zazol",
 	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/zazol666/skidscanner/refs/heads/main/lmafo"))()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/zazol666/scanner/refs/heads/main/backdoor"))()
   	end    
 })
 
